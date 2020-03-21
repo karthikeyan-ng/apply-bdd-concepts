@@ -33,12 +33,12 @@ public class PlacesValidationDefinition {
     }
 
     @When("User calls {string} with POST HTTP method")
-    public void user_calls_with_POST_HTTP_method(String string) {
+    public void user_calls_with_POST_HTTP_method(String resourceHint) {
         resSpec = new ResponseSpecBuilder()
                 .expectStatusCode(200).expectContentType(ContentType.JSON).build();
 
         response = reqSepc.when()
-                .post("/maps/api/place/add/json")
+                .post(ResourcePath.valueOf(resourceHint).getResource())
                 .then().spec(resSpec).extract().response();
     }
 
