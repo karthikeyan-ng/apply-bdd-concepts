@@ -8,7 +8,8 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "classpath:PlacesValidation.feature",
         glue = "classpath:com.techstack.stepdefinitions",
-        plugin = "html:target/cucumber-reports.html"
+        plugin = "html:target/cucumber-reports.html",
+        strict = true
 )
 public class FeatureRunner {
 }
