@@ -9,7 +9,8 @@ import org.junit.runner.RunWith;
         features = "classpath:PlacesValidation.feature",
         glue = "classpath:com.techstack.stepdefinitions",
         plugin = "html:target/cucumber-reports.html",
-        strict = true
+        strict = true,
+        tags = {"@AddPlace"}
 )
 public class FeatureRunner {
 }
