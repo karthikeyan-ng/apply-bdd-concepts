@@ -27,10 +27,9 @@ public class PlacesValidationDefinition {
     private Response response;
     private JsonPath jsonPath;
 
-    @Given("Add Place Payload")
-    public void add_Place_Payload() throws FileNotFoundException {
-
-        reqSepc = given().spec(ApiSpecification.getRestContextPath()).body(createPlace());
+    @Given("Add Place Payload with {string} {string} {string}")
+    public void add_Place_Payload_with(String name, String language, String address) throws FileNotFoundException {
+        reqSepc = given().spec(ApiSpecification.getRestContextPath()).body(createPlace(name, language, address));
     }
 
     @When("User calls {string} with POST HTTP method")
@@ -56,12 +55,12 @@ public class PlacesValidationDefinition {
         assertEquals(value, actualStatus);
     }
 
-    private AddPlace createPlace() {
+    private AddPlace createPlace(final String name, final String language, final String address) {
         AddPlace addPlace = new AddPlace();
         addPlace.setAccuracy(50);
-        addPlace.setAddress("48 Pirrama Road, Pyrmont, NSW 2009, Australia");
-        addPlace.setLanguage("en-AU");
-        addPlace.setName("Google Shoes!");
+        addPlace.setAddress(address);
+        addPlace.setLanguage(language);
+        addPlace.setName(name);
         addPlace.setPhone_number("(02) 9374 4000");
         addPlace.setWebsite("http://www.google.com.au/");
         addPlace.setTypes(List.of("shoe_store"));
