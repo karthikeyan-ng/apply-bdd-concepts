@@ -3,6 +3,7 @@ package com.techstack.stepdefinitions;
 import com.sun.tools.javac.util.List;
 import com.techstack.api.AddPlace;
 import com.techstack.api.Location;
+import com.techstack.utils.ApiSpecification;
 import com.techstack.utils.JsonUtils;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -29,10 +30,7 @@ public class PlacesValidationDefinition {
     public void add_Place_Payload() {
         AddPlace place = createPlace();
 
-        reqSepc = new RequestSpecBuilder()
-                .setBaseUri("https://rahulshettyacademy.com")
-                .addQueryParam("key", "qaclick123")
-                .build();
+        reqSepc = ApiSpecification.getRestContextPath();
         reqSepc = given().spec(reqSepc).body(place);
     }
 
