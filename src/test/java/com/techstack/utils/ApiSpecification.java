@@ -13,9 +13,17 @@ import static com.techstack.utils.PropertiesContext.getProperty;
 
 public class ApiSpecification {
 
-    public static RequestSpecification getRestContextPath() throws FileNotFoundException {
+    static PrintStream printStream;
 
-        PrintStream printStream = new PrintStream(new FileOutputStream("logging.txt"));
+    static {
+        try {
+            printStream = new PrintStream(new FileOutputStream("logging.txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static RequestSpecification getRestContextPath() throws FileNotFoundException {
 
         return new RequestSpecBuilder()
                 .setBaseUri(getProperty("site.hostUri"))

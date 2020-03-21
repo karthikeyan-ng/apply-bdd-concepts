@@ -10,3 +10,4 @@ Feature: Validating Place APIs
     Examples:
       |name | language | address
       |abc  | English  | Test address
+      |def  | German   | Test address1
