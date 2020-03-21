@@ -1,0 +1,32 @@
+Request method:	POST
+Request URI:	https://rahulshettyacademy.com/maps/api/place/add/json?key=qaclick123
+Proxy:			<none>
+Request params:	<none>
+Query params:	key=qaclick123
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=*/*
+				Content-Type=text/plain; charset=ISO-8859-1
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{"accuracy":50,"name":"Google Shoes!","phone_number":"(02) 9374 4000","address":"48 Pirrama Road, Pyrmont, NSW 2009, Australia","website":"http://www.google.com.au/","language":"en-AU","location":{"lat":-33.866971,"lng":151.195875},"types":["shoe_store"]}
+HTTP/1.1 200 OK
+Date: Sat, 21 Mar 2020 11:57:11 GMT
+Server: Apache/2.4.18 (Ubuntu)
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: POST
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With
+Content-Length: 194
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Content-Type: application/json;charset=UTF-8
+
+{
+    "status": "OK",
+    "place_id": "ad88339ed8039948a6dc2dc1295fe493",
+    "scope": "APP",
+    "reference": "ad94a8d4120f93e7c7c4abd6b5492c0fad94a8d4120f93e7c7c4abd6b5492c0f",
+    "id": "ad94a8d4120f93e7c7c4abd6b5492c0f"
+}
