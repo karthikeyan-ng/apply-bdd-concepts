@@ -16,6 +16,8 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
+import java.io.FileNotFoundException;
+
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 
@@ -27,11 +29,9 @@ public class PlacesValidationDefinition {
     private JsonPath jsonPath;
 
     @Given("Add Place Payload")
-    public void add_Place_Payload() {
-        AddPlace place = createPlace();
+    public void add_Place_Payload() throws FileNotFoundException {
 
-        reqSepc = ApiSpecification.getRestContextPath();
-        reqSepc = given().spec(reqSepc).body(place);
+        reqSepc = given().spec(ApiSpecification.getRestContextPath()).body(createPlace());
     }
 
     @When("User calls {string} with POST HTTP method")
