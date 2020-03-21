@@ -26,20 +26,37 @@ public class PlacesValidationDefinition {
     private ResponseSpecification resSpec;
     private Response response;
     private JsonPath jsonPath;
+    private String placeId;
 
     @Given("Add Place Payload with {string} {string} {string}")
     public void add_Place_Payload_with(String name, String language, String address) throws FileNotFoundException {
         reqSepc = given().spec(ApiSpecification.getRestContextPath()).body(createPlace(name, language, address));
     }
 
-    @When("User calls {string} with POST HTTP method")
-    public void user_calls_with_POST_HTTP_method(String resourceHint) {
+//    @When("User calls {string} with POST HTTP method")
+//    public void user_calls_with_POST_HTTP_method(String resourceHint) {
+//        resSpec = new ResponseSpecBuilder()
+//                .expectStatusCode(200).expectContentType(ContentType.JSON).build();
+//
+//        response = reqSepc.when()
+//                .post(ResourcePath.valueOf(resourceHint).getResource())
+//                .then().spec(resSpec).extract().response();
+//    }
+
+    @When("User calls {string} with {string} HTTP method")
+    public void user_calls_with_HTTP_method(String resourceHint, String httpVerb) {
         resSpec = new ResponseSpecBuilder()
                 .expectStatusCode(200).expectContentType(ContentType.JSON).build();
 
-        response = reqSepc.when()
-                .post(ResourcePath.valueOf(resourceHint).getResource())
-                .then().spec(resSpec).extract().response();
+        if(httpVerb.equals("POST")) {
+            response = reqSepc.when()
+                    .post(ResourcePath.valueOf(resourceHint).getResource())
+                    .then().spec(resSpec).extract().response();
+        } else if(httpVerb.equals("GET")) {
+            response = reqSepc.when()
+                    .get(ResourcePath.valueOf(resourceHint).getResource())
+                    .then().spec(resSpec).extract().response();
+        }
     }
 
     @Then("The API call is success with status code {int}")
@@ -53,6 +70,18 @@ public class PlacesValidationDefinition {
         jsonPath = JsonUtils.getJsonPathFromResponse(responseString);
         String actualStatus = jsonPath.getString(key);
         assertEquals(value, actualStatus);
+        placeId = jsonPath.getString("place_id");
+    }
+
+    @Then("Verify the place id created maps to {string} using {string}")
+    public void verify_the_place_id_created_maps_to_using(String placeName, String resourceHint) throws FileNotFoundException {
+        reqSepc = given().spec(ApiSpecification.getRestContextPath()).queryParam("place_id", placeId);
+        user_calls_with_HTTP_method(resourceHint, "GET");
+
+        String responseString = response.asString();
+        jsonPath = JsonUtils.getJsonPathFromResponse(responseString);
+        String name = jsonPath.getString("name");
+        assertEquals(placeName, name);
     }
 
     private AddPlace createPlace(final String name, final String language, final String address) {

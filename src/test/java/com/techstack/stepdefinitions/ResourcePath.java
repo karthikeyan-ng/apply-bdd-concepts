@@ -2,7 +2,8 @@ package com.techstack.stepdefinitions;
 
 public enum ResourcePath {
 
-    ADD_A_PLACE("/maps/api/place/add/json");
+    ADD_A_PLACE("/maps/api/place/add/json"),
+    GET_A_PLACE("/maps/api/place/get/json");
 
     private String resource;
 
